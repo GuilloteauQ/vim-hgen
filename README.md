@@ -1,6 +1,8 @@
 # Vim-HGen
 Generate your header files from Vim
 
+[![asciicast](https://asciinema.org/a/VLmXqhB2f4DTE2nTJ0gn1Kgei.svg)](https://asciinema.org/a/VLmXqhB2f4DTE2nTJ0gn1Kgei)
+
 ## How to install the plugin ?
 
 ### Vundle
