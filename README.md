@@ -1,9 +1,31 @@
 # Vim-HGen
 Generate your header files from Vim
 
-## How to run ?
+## How to install the plugin ?
 
-To run the pluggin, enter the command
+### Vundle
+
+Add the following line to your ``vimrc``
+
+```vim
+Plugin 'GuilloteauQ/vim-hgen'
+```
+
+And run ``:PluginInstall``
+
+### Plug 
+
+Add the following line to your ``vimrc``
+
+```vim
+Plug 'GuilloteauQ/vim-hgen'
+```
+
+And run ``:PlugInstall``
+
+## How to run the Plugin ?
+
+To run the pluggin, enter the following command on a c file
 
 ```vim
 :Hgen
