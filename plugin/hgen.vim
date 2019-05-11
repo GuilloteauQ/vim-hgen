@@ -11,7 +11,6 @@ function! g:HGen()
         let current_line = getline(i)
         if HasOpenCurlyBrak(current_line)
             if open == 0
-                echo current_line[0:-2]
                 call add(functions, current_line[0:-2].';')
             endif
             let open = open + 1
@@ -24,6 +23,7 @@ function! g:HGen()
     call add(functions, '#endif')
     exec 'silent pedit '.name.'.h'
     wincmd P
+    normal! ggvGd
     call append(0, functions)
 endfunction
 
@@ -51,4 +51,4 @@ function! HasCloseCurlyBrak(line_content)
     return 0
 endfunction
 
-command! Hgen call HGen
+command! Hgen call HGen()
