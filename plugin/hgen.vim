@@ -42,7 +42,7 @@ function! g:HGen()
         let i = i + 1
     endwhile
     call add(functions, "#endif")
-    exec "silent pedit ".name.".h"
+    exec "silent pedit ".expand("%")[0:-3].".h"
     wincmd P
     normal! ggvGd
     call append(0, functions)
