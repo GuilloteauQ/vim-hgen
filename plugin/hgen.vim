@@ -27,11 +27,11 @@ function! g:HGen()
     call append(0, functions)
 endfunction
 
-function! HasOpenCurlyBrak(line_content)
+function! HasChar(line_content, char)
     let i = 0
     while i < strlen(a:line_content)
         let c = a:line_content[i]
-        if c == '{'
+        if c == a:char
             return 1
         endif
         let i = i + 1
@@ -39,16 +39,12 @@ function! HasOpenCurlyBrak(line_content)
     return 0
 endfunction
 
+function! HasOpenCurlyBrak(line_content)
+    return HasChar(a:line_content, '{')
+endfunction
+
 function! HasCloseCurlyBrak(line_content)
-    let i = 0
-    while i < strlen(a:line_content)
-        let c = a:line_content[i]
-        if c == '}'
-            return 1
-        endif
-        let i = i + 1
-    endwhile
-    return 0
+    return HasChar(a:line_content, '}')
 endfunction
 
 command! Hgen call HGen()
