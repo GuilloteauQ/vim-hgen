@@ -17,11 +17,15 @@ function! g:HGen()
                 let i = i + 1
                 let struct_line = getline(i + 1)
             endwhile
+            let i = i + 1
+        elseif open == 0 && len(current_line) > 0
+            if current_line[len(current_line)-1] == '{'
+                call add(functions, current_line[0:-2].';')
+            else
+                call add(functions, current_line)
+            endif
         endif
         if HasOpenCurlyBrak(current_line)
-            if open == 0
-                call add(functions, current_line[0:-2].';')
-            endif
             let open = open + 1
         endif
         if HasCloseCurlyBrak(current_line)
