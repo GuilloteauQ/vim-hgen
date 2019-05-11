@@ -3,13 +3,17 @@ function! g:HGen()
     let nb_lines = line('$')
     let i = 1
     let open = 0
-    let in_struct = 0
+    let current_is_static = 0
     let functions = []
     let name = expand('%:t')[0:-3]
     call add(functions, '#ifndef _'.toupper(name).'_H_')
     call add(functions, '#define _'.toupper(name).'_H_')
     while i <= nb_lines
         let current_line = getline(i)
+        if len(current_line) > 0 && split(current_line)[0] == 'static'
+            let current_is_static = 1
+        endif
+
         if ((current_line == '/* [start]') || (current_line == '/*[start]'))
             let struct_line = getline(i + 1)
             while ((struct_line != '[end] */') && (struct_line != '[end]*/'))
@@ -18,7 +22,7 @@ function! g:HGen()
                 let struct_line = getline(i + 1)
             endwhile
             let i = i + 1
-        elseif open == 0 && len(current_line) > 0
+        elseif open == 0 && len(current_line) > 0 && !current_is_static
             if current_line[len(current_line)-1] == '{'
                 call add(functions, current_line[0:-2].';')
             else
@@ -30,6 +34,9 @@ function! g:HGen()
         endif
         if HasCloseCurlyBrak(current_line)
             let open = open - 1
+            if open == 0 && current_is_static
+                let current_is_static = 0
+            endif
         endif
         let i = i + 1
     endwhile
