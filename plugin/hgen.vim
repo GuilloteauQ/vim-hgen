@@ -3,12 +3,21 @@ function! g:HGen()
     let nb_lines = line('$')
     let i = 1
     let open = 0
+    let in_struct = 0
     let functions = []
     let name = expand('%:t')[0:-3]
     call add(functions, '#ifndef _'.toupper(name).'_H_')
     call add(functions, '#define _'.toupper(name).'_H_')
     while i <= nb_lines
         let current_line = getline(i)
+        if ((current_line == '/* [start]') || (current_line == '/*[start]'))
+            let struct_line = getline(i + 1)
+            while ((struct_line != '[end] */') && (struct_line != '[end]*/'))
+                call add(functions, struct_line)
+                let i = i + 1
+                let struct_line = getline(i + 1)
+            endwhile
+        endif
         if HasOpenCurlyBrak(current_line)
             if open == 0
                 call add(functions, current_line[0:-2].';')
