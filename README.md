@@ -54,4 +54,9 @@ This will copy the content between the two tags in the header file.
 
 ## Static functions
 
-``static`` function definitions will not be copied into the header file.
+By default,``static`` function definitions will not be copied into the header file.
+However, if you want to add ``static`` functions to the header files, you should add the following line to your ``vimrc``
+
+```vim
+let g:HgenTakeStatic = 1
+```
