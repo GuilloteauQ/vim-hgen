@@ -1,3 +1,6 @@
+if !exists('g:HgenTakeStatic')
+   let g:HgenTakeStatic = 0
+endif
 
 function! g:HGen()
     let nb_lines = line("$")
@@ -10,7 +13,7 @@ function! g:HGen()
     call add(functions, "#define _".toupper(name)."_H_")
     while i <= nb_lines
         let current_line = getline(i)
-        if len(current_line) > 0 && split(current_line)[0] == 'static'
+        if !g:HgenTakeStatic && len(current_line) > 0 && split(current_line)[0] == 'static'
             let current_is_static = 1
         endif
 
